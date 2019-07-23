@@ -1,0 +1,27 @@
+{
+  "name": "http-alive",
+  "version": "1.0.0",
+  "description": "keep your web service always online",
+  "main": "http-alive.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cooperhsiung/http-alive.git"
+  },
+  "keywords": [
+    "http",
+    "alive",
+    "load-balance"
+  ],
+  "author": "Cooper Hsiung",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cooperhsiung/http-alive/issues"
+  },
+  "homepage": "https://github.com/cooperhsiung/http-alive#readme",
+  "dependencies": {
+    "http-proxy-lite": "^1.0.6"
+  }
+}
