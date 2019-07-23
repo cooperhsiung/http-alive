@@ -5,6 +5,8 @@
 
 keep your web service always online
 
+it makes your service self-balanced, previously we restart our app by **kill process -> restart app** or **pm2 restart**, but some requests may be handling and blocked when we restart, if we stop our app, those requests will be interrupted. `http-alive` helps to fork two process, one of arbiter, one of slave, when you stop the master, the arbiter will thansfer those blocked requests to the slave, in this way, it keep your web service always online
+
 ## Installation
 
 ```bash
@@ -13,7 +15,23 @@ npm i http-alive -S
 
 ## Usage
 
-just one line `import './http-alive';`
+### before
+
+your original web service
+
+```typescript
+import * as http from 'http';
+
+http
+  .createServer((req, res) => {
+    res.end(`${process.pid}-${process.env.PORT}`);
+  })
+  .listen(3000);
+```
+
+### after
+
+add one line `import './http-alive';`
 
 ```typescript
 import * as http from 'http';
@@ -29,13 +47,19 @@ http
   .listen(port);
 ```
 
-config file
-
-.httpalive
+add a config file `.httpalive` in your project directory
 
 ```json
 { "arbiter": 3000, "master": 3001, "slave": 3002 }
 ```
+
+pay attention to the ports, the arbiter's port equals to your original port
+
+then start your service
+
+## Others
+
+to completely remove process forked by `http-alive`, run command `httpalive clean`
 
 ## Todo
 
