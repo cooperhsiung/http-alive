@@ -31,12 +31,12 @@ http
 
 ### after
 
-add one line `import './http-alive'`, use **process.env.PORT** to define service's port
+add one line `import 'http-alive'`, use **process.env.PORT** to define service's port
 
 ```typescript
 import * as http from 'http';
 
-import './http-alive';
+import 'http-alive';
 
 const port = process.env.PORT;
 
