@@ -31,7 +31,7 @@ http
 
 ### after
 
-add one line `import './http-alive';`
+add one line `import './http-alive'`, use **process.env.PORT** to define service's port
 
 ```typescript
 import * as http from 'http';
@@ -53,7 +53,7 @@ add a config file `.httpalive` in your project directory
 { "arbiter": 3000, "master": 3001, "slave": 3002 }
 ```
 
-pay attention to the ports, the arbiter's port equals to your original port
+pay attention to those ports, the arbiter's port equals to your original port
 
 then start your service
 
