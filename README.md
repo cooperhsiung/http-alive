@@ -5,7 +5,7 @@
 
 keep your web service always online
 
-it makes your service self-balanced, previously we restart our app by **kill process -> start app** or **pm2 restart**, but some requests may be handling and blocked when we restart, if we stop our app, those requests will be interrupted. `http-alive` helps to fork two process, one of arbiter, one of slave, when you stop the master, the arbiter will thansfer those blocked requests to the slave, in this way, your web service is always ready
+it makes your service self-balanced, previously we restart our app by **kill process -> start app** or **pm2 restart**, but some requests may be handling/blocked when restarting, if we stop our app, those requests will be interrupted. `http-alive` helps to fork two process, one of arbiter, one of slave, when you stop the master, the arbiter will thansfer those blocked requests to the slave, in this way, your web service is always ready
 
 ## Installation
 
