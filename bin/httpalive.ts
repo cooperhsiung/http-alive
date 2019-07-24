@@ -22,12 +22,13 @@ if (!exist) {
 
 const data = fs.readFileSync(pidFile, 'utf-8');
 const j = JSON.parse(data);
-Object.values(j).map(pid => {
+Object.keys(j).map(k => {
   try {
-    process.kill(pid as number);
+    process.kill(j[k] as number);
+    console.log(`kill pid ${j[k]} of ${k}`);
   } catch (e) {
     if (e.code === 'ESRCH') {
-      console.log('skip pid', pid);
+      console.log(`skip pid ${j[k]} of ${k}`);
     } else {
       console.error(e);
     }

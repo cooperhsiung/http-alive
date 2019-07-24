@@ -9,3 +9,5 @@ http
     res.end(`${process.pid}-${process.env.PORT}`);
   })
   .listen(port);
+
+console.log(`Listening on http://localhost:${port} ..`);

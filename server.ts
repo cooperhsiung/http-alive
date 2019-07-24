@@ -1,18 +1,15 @@
 import * as http from 'http';
 import { createProxyServer } from 'http-proxy-lite';
+import { sample } from './util';
 
 const port = process.env.PORT;
 const proxy = createProxyServer();
 
 type Endpoint = { url: string; healthy: boolean; fall: number };
 
-let endpoints: Endpoint[] = [
-  {
-    url: 'http://localhost:' + process.env.MASTER_PORT,
-    healthy: true,
-    fall: 0
-  },
-  { url: 'http://localhost:' + process.env.SLAVE_PORT, healthy: true, fall: 0 }
+const endpoints: Endpoint[] = [
+  { url: `http://localhost:${process.env.MASTER_PORT}`, healthy: true, fall: 0 }, // prettier-ignore
+  { url: `http://localhost:${process.env.SLAVE_PORT}`, healthy: true, fall: 0 }
 ];
 
 http
@@ -25,7 +22,8 @@ http
     }
     proxy
       .web(req, res, { target: ep1.url })
-      .on('error', () => {
+      .on('error', e => {
+        console.error(e);
         ep1.healthy = false;
         ep1.fall++;
         setTimeout(() => {
@@ -35,7 +33,8 @@ http
         const ep2 = endpoints.find(e => e.url !== ep1.url) as Endpoint;
         proxy
           .web(req, res, { target: ep2.url })
-          .on('error', error => {
+          .on('error', e => {
+            console.error(e);
             res.writeHead(500, { 'Content-Type': 'text/plain' });
             res.end('Internal Server Error');
           })
@@ -49,16 +48,7 @@ http
   })
   .listen(port);
 
-const sample = (arr: any[]) => {
-  if (arr.length === 1) {
-    return arr[0];
-  }
-  if (Math.random() > 0.5) {
-    return arr[1];
-  } else {
-    return arr[0];
-  }
-};
+console.log(`Listening on http://localhost:${port} ..`);
 
 process.on('uncaughtException', err => {
   console.error('uncaughtException:', err);

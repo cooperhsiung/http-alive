@@ -5,7 +5,7 @@
 
 keep your web service always online
 
-it makes your service self-balanced, previously we restart our app by **kill process -> restart app** or **pm2 restart**, but some requests may be handling and blocked when we restart, if we stop our app, those requests will be interrupted. `http-alive` helps to fork two process, one of arbiter, one of slave, when you stop the master, the arbiter will thansfer those blocked requests to the slave, in this way, it keep your web service always online
+it makes your service self-balanced, previously we restart our app by **kill process -> start app** or **pm2 restart**, but some requests may be handling and blocked when we restart, if we stop our app, those requests will be interrupted. `http-alive` helps to fork two process, one of arbiter, one of slave, when you stop the master, the arbiter will thansfer those blocked requests to the slave, in this way, your web service is always ready
 
 ## Installation
 
@@ -31,7 +31,7 @@ http
 
 ### after
 
-add one line `import 'http-alive'`, use **process.env.PORT** to define service's port
+add one line `import 'http-alive'`, use **process.env.PORT** to define the service's port
 
 ```typescript
 import * as http from 'http';
@@ -53,13 +53,19 @@ add a config file `.httpalive` in your project directory
 { "arbiter": 3000, "master": 3001, "slave": 3002 }
 ```
 
-pay attention to those ports, the arbiter's port equals to your original port
+please pay attention to the ports, the arbiter's port equals to your original port
 
-then start your service
+then start your service like usual
 
 ## Others
 
-to completely remove process forked by `http-alive`, run command `httpalive clean`
+### clean process
+
+to completely remove process forked by http-alive, `npm i httpalive -g`, then run command `httpalive clean`
+
+or
+
+add `"clean": "node ./node_modules/http-alive/bin/httpalive.js clean"` to package.json's scripts, then `npm run clean`
 
 ## Todo
 
