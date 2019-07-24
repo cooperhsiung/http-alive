@@ -30,7 +30,7 @@ function launch() {
 
   if (!process.env.HTTP_ALIVE_LOCK) {
     let arbiterProcess = spawn('node', [path.resolve(__dirname, 'server.js')], {
-      // detached: true,
+      detached: true,
       stdio: 'pipe',
       env: {
         ...process.env,
@@ -57,7 +57,7 @@ function launch() {
       'node',
       [module.parent!.filename.replace('.ts', '.js')],
       {
-        // detached: true,
+        detached: true,
         stdio: 'pipe',
         env: { ...process.env, PORT: conf.slave, HTTP_ALIVE_LOCK: 'true' }
       }

@@ -1,8 +1,11 @@
 {
   "name": "http-alive",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "keep your web service always online",
   "main": "http-alive.js",
+  "bin": {
+    "httpalive": "./bin/httpalive.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
