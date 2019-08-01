@@ -1,6 +1,6 @@
 {
   "name": "http-alive",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "keep your web service always online",
   "main": "http-alive.js",
   "bin": {
